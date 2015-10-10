@@ -4,8 +4,8 @@ function jsg4u_build( $type, $slug, $id = '', $attr = array() ) {
 }
 function jsg4u_get_build( $type, $slug, $id, $attr = array() ) {
 	$attr = wp_parse_args( $attr, apply_filters( "jsg4u_build_{$type}_{$slug}", $id, array() ) );
-$out = '';
-$out = array();
+	$out = '';
+	$out = array();
 	foreach ( $attr as $name => $value ){
 		$field = '_jsg4u_' . $type . '_' . $value;
 		$meta = get_post_meta( $id, $field, true );
@@ -17,7 +17,6 @@ $out = array();
 	}
 
 	return $out;
-
 }
 
 function jsg4u_attr( $type, $slug, $id = '', $label = '', $comma = true, $attr = array() ) {
@@ -37,15 +36,20 @@ function jsg4u_get_attr( $type, $slug, $id, $label, $comma, $attr = array() ) {
 		$name = ( !empty($label) ? $label : $slug );
 		$attr[$name] = $meta;
 	}
-	foreach ( $attr as $name => $value )
+	foreach ( $attr as $name => $value ) {
 		// let's not output a name unless it has value
 		if ( !empty($value) ){
 			// "name":"value"
-			$out .= '"' . esc_js( $name ) . '":"' . esc_js( $value ) . '"';	
+		//	$out .= '"' . esc_js( $name ) . '":"' . esc_js( $value ) . '"';
+			$out .= '"' . esc_js( $name ) . '":';
+			$var[] = esc_js( $value );
+			$out .= json_encode($var, JSON_PRETTY_PRINT);
 			// $comma = true by default, use false for the last item of a data set					
 			if ( $comma ) 
 				$out .= ',';
-		}
+		}		
+	}
+
 	return $out;
 
 }

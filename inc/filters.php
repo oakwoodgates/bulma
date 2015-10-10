@@ -43,7 +43,7 @@ function json_schema_guru_secondary_output_3( $jsgid ) {
 		) );
 	if ( $var ) {
 		$output = array_merge($schema,$var);
-		$content = '"address":' . json_encode($output) . ',';
+		$content = '"address":' . json_encode($output, JSON_PRETTY_PRINT) . ',';
 	//	return $content;
 	 echo $content;		
 	}
@@ -78,7 +78,7 @@ function jsg4u_opening_hours( $jsgid ) {
 
 		}
 
-		$content = '"openingHours":' . json_encode($var) . ',';
+		$content = '"openingHours":' . json_encode($var, JSON_PRETTY_PRINT) . ',';
 		echo $content;		
 	}
 
@@ -124,7 +124,7 @@ function jsg4u_holiday_hours( $jsgid ) {
 
 		if ( $var ) {
 		//	$output = array_merge($schema,$var);
-			$content = '"openingHoursSpecification":' . json_encode($out) . ',';
+			$content = '"openingHoursSpecification":' . json_encode($out, JSON_PRETTY_PRINT) . ',';
 		//	return $content;
 		 echo $content;		
 		}		
@@ -182,10 +182,23 @@ function jsg4u_departments( $jsgid ) {
 
 		if ( $var ) {
 		//	$output = array_merge($schema,$var);
-			$content = '"department":' . json_encode($out) . ',';
+		//	$content = '"department":' . json_encode($out, JSON_PRETTY_PRINT) . ',';
+			$dept['department'] = $out;
+		//	$dept[] = $out;
+		//	$content = '"department":' . $out;
+			$content = json_encode($dept, JSON_PRETTY_PRINT);
+		//	print_r($dept);
+
+		//	$content = '"department":' . json_encode($out, JSON_PRETTY_PRINT ) . ',';
 		//	return $content;
-		 echo $content;		
+			 
+			echo $content;		
 		}
+//		$cray[] = "yea";
+//		echo '"APPLE":' . json_encode($cray, JSON_PRETTY_PRINT ) . ',';
+//		echo '"APPLE":' . json_encode($cray, JSON_PRETTY_PRINT ) . ',';
+//		echo '"APPLE":' . json_encode($cray, JSON_PRETTY_PRINT ) . ',';
+//		echo '"APPLE":' . json_encode($cray, JSON_PRETTY_PRINT ) . ',';
 	}
 
 }

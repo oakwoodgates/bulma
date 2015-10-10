@@ -31,7 +31,7 @@ require_once dirname( __FILE__ ) . '/inc/functions-iso_countries.php';
 require_once dirname( __FILE__ ) . '/inc/functions-languages.php';
 
 require_once dirname( __FILE__ ) . '/inc/filters-base.php';
-require_once dirname( __FILE__ ) . '/inc/filters.php';
+require_once dirname( __FILE__ ) . '/inc/filters-1.php';
 
 require_once dirname( __FILE__ ) . '/inc/options.php';
 
@@ -53,7 +53,7 @@ require_once dirname( __FILE__ ) . '/inc/metabox-departments.php';
 
 
 // Badda bing, badda boom
-require_once dirname( __FILE__ ) . '/inc/output.php';
+require_once dirname( __FILE__ ) . '/inc/output-1.php';
 
 add_action( 'init', 'json_schema_guru_init' );
 function json_schema_guru_init() {
