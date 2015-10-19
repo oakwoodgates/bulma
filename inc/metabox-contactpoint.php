@@ -108,13 +108,14 @@ function jsg4u_contactpoint_general_filter( $content, $prefix, $cmb ) {
 		'id'      => $prefix . 'areaserved',
 		'desc'    => __( 'Select countries. Drag to reorder', 'jsg4u' ),
 		'type'    => 'pw_multiselect',
-		'options' => apply_filters( 'jsg4u_iso_countries', '' ),			
+		'options' => apply_filters( 'json_schema_guru_iso_countries', '' ),			
 	) );
 
 	$content .= $cmb->add_field( array(
 		'name' => __( 'Days', 'jsg4u' ),
 		'id' => $prefix . 'contactoption',
 		'type' => 'multicheck',
+		'select_all_button' => false,
 		'desc' => __( 'Optional details about the phone number. Currently only these two values are supported.', 'jsg4u' ),
 		'options' => array(
 			'TollFree' => __( 'Toll Free', 'jsg4u' ),
@@ -141,6 +142,7 @@ function jsg4u_organization_department_filter_contactpoint( $content, $prefix, $
 		'name' => __( 'Are the contact points for this department the same as the contact points for the organization?', 'jsg4u' ),
 		'id' => 'contactpoint_same',
 		'type' => 'radio',
+		'default' => '0',
 		'desc' => __( '', 'jsg4u' ),
 		'options' => array(
 			'0' => __( 'Yes, inherit contact points from parent organization', 'jsg4u' ),

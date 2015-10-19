@@ -46,6 +46,7 @@ function jsg4u_organization_department_filter_2( $content, $prefix, $cmb, $group
 	$content = $cmb->add_group_field( $group_field_id, array(
 		'name' => __( 'Is the address for this department the same as the address for the organization?', 'jsg4u' ),
 		'id' => 'address_same',
+		'default' => '0',
 		'type' => 'radio',
 		'desc' => __( 'For many businesses, the departement address is the same as the main store or organization address.', 'jsg4u' ),
 		'options' => array(

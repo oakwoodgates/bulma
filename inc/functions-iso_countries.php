@@ -1,5 +1,5 @@
 <?php
-add_filter( 'json_schema_guru_iso_countries', 'json_schema_guru_default_countries', 1 );
+add_filter( 'json_schema_guru_iso_countries', 'json_schema_guru_default_countries', 10 );
 function json_schema_guru_default_countries( $content ) {
 	$content = array(
 		'AF' => __( 'Afghanistan', 'jsg4u' ),

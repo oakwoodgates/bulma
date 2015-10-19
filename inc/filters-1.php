@@ -1,10 +1,18 @@
 <?php
-add_filter( 'json_schema_guru_main_output', 'jsg4u_main_output', 10, 2 );
+add_filter( 'json_schema_guru_main_output', 'jsg4u_context_output', 1, 2 );
+function jsg4u_context_output( $content, $jsgid ){
+
+	$content['@context'] = 'http://schema.org';	
+
+	return $content;
+
+}
+add_filter( 'json_schema_guru_main_output', 'jsg4u_main_output', 5, 2 );
 function jsg4u_main_output( $content, $jsgid ){
 
 	$prefix = '_jsg4u_general_';
 
-	$content['@context'] = 'http://schema.org';
+//	$content['@context'] = 'http://schema.org';
 	$attr = array(
 		'@type' => 'schema_type',
 		'name' => 'name',
@@ -20,8 +28,10 @@ function jsg4u_main_output( $content, $jsgid ){
 		$meta = get_post_meta( $jsgid, $field, true );
 		// let's not output a name unless it has value
 		if ( $meta )
+		//	$out[$name] = $meta;
 			$content[$name] = $meta;
-	}	
+	}
+//	$content = array_merge($content,$out);
 
 	return $content;
 
@@ -209,7 +219,7 @@ function jsg4u_departments_main_output_1( $content, $jsgid ) {
 	return $content;
 }
 */
-add_filter( 'json_schema_guru_main_output', 'jsg4u_departments_main_output', 10, 2 );
+add_filter( 'json_schema_guru_main_output', 'jsg4u_departments_main_output', 30, 2 );
 function jsg4u_departments_main_output( $content, $jsgid ) {
 
 	$entries = get_post_meta( $jsgid, '_jsg4u_department_group', true );
@@ -233,29 +243,11 @@ function jsg4u_departments_main_output( $content, $jsgid ) {
 }
 add_filter( 'jsg4u_dept_output_builder', 'jsg4u_dept_output_builder_1', 10, 4 );
 function jsg4u_dept_output_builder_1( $dept_content, $jsgid, $dept_id, $entry ) {
-	$prefix = '_jsg4u_general_';
-	
-	    $attr = $name = $value = $var = '';
-		$attr = array(
-			'@type' => 'schema_type',
-			'name' => 'name',
-			'logo' => 'logo',
-			'description' => 'description',
-			'telephone' => 'telephone',
-			'faxNumber' => 'fax',
-			'email' => 'email',
-			'url' => 'url',
-		);
-		foreach ( $attr as $name => $value ){
-			$field = $prefix . $value;
-			$meta = get_post_meta( $dept_id, $field, true );
-			// let's not output a name unless it has value
-			if ( $meta )
-				$var[$name] = $meta;
-		}
-		$out[] = $var;			
+		
+	$dept_content = jsg4u_main_output( $dept_content, $dept_id );
 
-	return $var;
+	return $dept_content;
+
 }
 
 add_filter( 'jsg4u_dept_output_builder', 'jsg4u_dept_output_builder_2', 20, 4 );
@@ -263,20 +255,8 @@ function jsg4u_dept_output_builder_2( $dept_content, $jsgid, $dept_id, $entry ) 
 
 	$prefix = '_jsg4u_general_';
 	if ($entry['address_same']){
-		$schema = array( '@type'=>'PostalAddress');	
-		$var = jsg4u_build( 'location', 'slug', $dept_id, $attr = array(
-				'streetAddress' => 'streetaddress',
-				'postOfficeBoxNumber' => 'pobox',
-				'addressLocality' => 'addresslocality',
-				'addressRegion' => 'addressregion',
-				'postalCode' => 'postalcode',
-				'addressCountry' => 'addresscountry'
-			) );
-		if ( $var ) {
-			$output = array_merge($schema,$var);
-			$dept_content['address'] = $output;
-		}
-	
+		$dept_content = jsg4u_address_main_output( $dept_content, $dept_id );
+
 	}
 		
 	return $dept_content;

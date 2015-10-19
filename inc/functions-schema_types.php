@@ -12,11 +12,11 @@ function json_schema_guru_default_schemas( $content ) {
 	return $content;
 }
 
-// add_filter( 'json_schema_guru_schema_types', 'my_special_order3', 15 );
-// function my_special_order3( $content ) {
-//	$new = array(
-//		'' => __( '', 'jsg4u' ),
-//		'' => __( '', 'jsg4u' ),
-//	);	
-//	return $content = array_merge( $content, $new );
-// }
+add_filter( 'json_schema_guru_schema_types', 'my_special_order3', 15 );
+function my_special_order3( $content ) {
+	$new = array(
+		'NightClub' => __( 'NightClub', 'jsg4u' ),
+		'BarOrPub' => __( 'BarOrPub', 'jsg4u' ),
+	);	
+	return $content = array_merge( $content, $new );
+}
